@@ -8,10 +8,10 @@
 > pIBAlts :: P Tok [[Tok]]
 > pIBAlts = teq (Sym "|") *> many (many (tok (/= Sym "|")) <* teq (Sym "|"))
 
-> pInfA :: P Tok ([Tok], Tok, [Tok])
-> pInfA = (,,) <$> many (tok (not . infSym)) <*> tok infSym <*> pRest where
->   infSym (Sym s) = not (elem s ["~", "@"])
->   infSym _ = False
+> pInfA :: P Tok [[Tok]]
+> pInfA = (pSep (tok commaSym) (many (tok (not . commaSym)))) where
+>   commaSym (Sym s) = s == ","
+>   commaSym _ = False
 
 > ia :: Tok -> String -> Tok -> Tok
 > ia x o y = B Rnd [x, Spc " ", Sym o, Spc " ", y]
@@ -63,7 +63,8 @@
 > iPro :: [Tok] -> Tok
 > iPro ts = case parse pInfA ts of
 >   Nothing -> iStart ts
->   Just (as, o, bs) -> iIA (iIA (ip (B Rnd [o])) as) bs
+>   Just as -> iGrok (ip (B Rnd [Sym (replicate (length as - 1) ',')])) ((map (B Rnd) as))
+
 
 > rejig :: [[Tok]] -> Tok
 > rejig [] = Lid "empty"

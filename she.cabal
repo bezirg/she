@@ -1,5 +1,5 @@
 name:               she
-version:            0.6
+version:            0.6.1
 homepage:           http://personal.cis.strath.ac.uk/~conor/pub/she
 synopsis:           A Haskell preprocessor adding miscellaneous features
 description:
