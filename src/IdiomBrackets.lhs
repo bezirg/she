@@ -63,7 +63,11 @@
 > iPro :: [Tok] -> Tok
 > iPro ts = case parse pInfA ts of
 >   Nothing -> iStart ts
->   Just as -> iGrok (ip (B Rnd [Sym (replicate (length as - 1) ',')])) ((map (B Rnd) as))
+>   Just as -> case as of
+>               [a] -> if words (toksOut a) == []
+>                   then B Rnd [Lid "pure", Spc " ", Lid "Nothing"]
+>                   else B Rnd (map (B Rnd) as)
+>               _ -> iGrok (ip (B Rnd [Sym (replicate (length as - 1) ',')])) ((map (B Rnd) as))
 
 
 > rejig :: [[Tok]] -> Tok
