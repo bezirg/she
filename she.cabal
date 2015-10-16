@@ -9,8 +9,9 @@ description:
 category:           Language
 license:            PublicDomain
 license-file:       LICENCE
-author:             Conor McBride
-maintainer:         conor@strictlypositive.org
+author:             Conor McBride <conor@strictlypositive.org>,
+                    Nikolaos Bezirgiannis <bezirgia@cwi.nl>
+maintainer:         Nikolaos Bezirgiannis <bezirgia@cwi.nl>
 extra-source-files: src/Makefile
                     examples/Binding.lhs
                     examples/Fix.lhs
